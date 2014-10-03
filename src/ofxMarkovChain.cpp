@@ -84,6 +84,15 @@ int MarkovChain::getStatesNumber(){
 	return transMat.size();
 }
 
+void MarkovChain::setProbabilities(int i, vector<float> row){
+	if(row.size() != transMat[i].size()){
+		ofLog(OF_LOG_ERROR) << "Bad size for state transition probabilites assignment";
+		return;
+	}
+	transMat[i] = row;
+	checkTransitionMatrix();
+}
+
 void MarkovChain::draw(int x, int y){
 	for(int i = 0; i < transMat.size(); ++i){
 		if(state == i){
