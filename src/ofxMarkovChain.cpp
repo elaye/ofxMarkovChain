@@ -32,9 +32,21 @@ void MarkovChain::load(string filename){
 bool MarkovChain::checkTransitionMatrix(){
 	int nCol = transMat[0].size();
 	for(int i = 1; i < transMat.size(); ++i){
-		if(transMat[i].size() != nCol) return false;
+		if(transMat[i].size() != nCol){
+			ofLog(OF_LOG_ERROR) << "The transition matrix must be a square matrix";
+			return false;	
+		} 
+		float sum = 0.0;
+		for(int j = 0; j < transMat[i].size(); ++j){
+			sum += transMat[i][j];
+		}
+		if(sum != 1.0){
+			ofLog(OF_LOG_ERROR) << "The transition matrix must be stochastic\n(the sum of the coefficients in a row must be equal to 1.0)";
+			return false;
+		}
 	}
 	if(transMat.size() != nCol){
+		ofLog(OF_LOG_ERROR) << "The transition matrix must be a square matrix";
 		return false;
 	}
 	else{
@@ -64,17 +76,21 @@ void MarkovChain::update(){
 	state = new_state;
 }
 
+int MarkovChain::getState(){
+	return state;
+}
+
 void MarkovChain::draw(int x, int y){
 	for(int i = 0; i < transMat.size(); ++i){
 		if(state == i){
-			ofSetColor(ofColor::red);
+			ofSetColor(ofColor(231, 44, 44, 255));
 		}
 		else{
-			ofSetColor(ofColor::green);
+			ofSetColor(ofColor(44, 231, 44, 255));
 		}
-		ofCircle(x + 50*i, y, 20);
+		ofCircle(x + 25*i, y, 10);
 		ofSetColor(ofColor::black);
-		ofDrawBitmapString(ofToString(i), x+50*i-4, y+4);
+		ofDrawBitmapString(ofToString(i), x+25*i-4, y+4);
 	}
 }
 

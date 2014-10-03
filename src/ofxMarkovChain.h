@@ -14,6 +14,7 @@ class MarkovChain {
 		void load(string filename);
 		bool checkTransitionMatrix();
 		void update();
+		int getState();
 		void draw(int x, int y);	
 		void logTransitionMatrix();
 };
