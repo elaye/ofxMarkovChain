@@ -80,6 +80,10 @@ int MarkovChain::getState(){
 	return state;
 }
 
+int MarkovChain::getStatesNumber(){
+	return transMat.size();
+}
+
 void MarkovChain::draw(int x, int y){
 	for(int i = 0; i < transMat.size(); ++i){
 		if(state == i){
