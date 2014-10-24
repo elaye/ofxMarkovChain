@@ -1,0 +1,38 @@
+ofxRing
+=======
+
+![MarkovChain](ofxaddons_thumbnail.png)
+
+Introduction
+------------
+
+This is a simple openFrameworks addon for generating random states using a Markov chain. The transition matrix can be set programmatically or with a text file.
+
+Usage
+-----
+
+Create a Markov chain and load a transition matrix like this:
+
+	MarkovChain markov;
+    markov.load("transitionMatrix.txt");
+
+Update the state of the Markov chain:
+
+	markov.update();
+
+You can get the state of the Markov chain like this:
+
+	markov.getState();
+
+It will return an `int` representing the state of the Markov chain, starting at 0.
+
+You can draw the Markov chain with the `draw()` method.
+
+Example
+-------
+
+The example depends on the ofxGui addon to work.
+
+Compatibility
+-------------
+This addon was tested with Linux and openFrameworks v0.8.3
