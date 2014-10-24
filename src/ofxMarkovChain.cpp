@@ -23,7 +23,7 @@ void MarkovChain::load(string filename){
 		transMat.push_back(row);
 	}
 	while(!buffer.isLastLine());
-	logTransitionMatrix();
+	// logTransitionMatrix();
 	if(!checkTransitionMatrix()){
 		ofLog(OF_LOG_ERROR) << "Bad transition matrix";
 	}
@@ -74,6 +74,15 @@ void MarkovChain::update(){
 		new_state = row.size()-1;
 	}
 	state = new_state;
+}
+
+void MarkovChain::setTransitionMatrix(transitionMatrix mat){
+	transMat = mat;
+	checkTransitionMatrix();
+}
+
+transitionMatrix MarkovChain::getTransitionMatrix(){
+	return transMat;
 }
 
 int MarkovChain::getState(){

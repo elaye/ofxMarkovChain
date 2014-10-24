@@ -16,6 +16,8 @@ class MarkovChain {
 		void update();
 		int getState();
 		int getStatesNumber();
+		void setTransitionMatrix(transitionMatrix mat);
+		transitionMatrix getTransitionMatrix();
 		void setProbabilities(int i, vector<float> row);
 		void draw(int x, int y);	
 		void logTransitionMatrix();
