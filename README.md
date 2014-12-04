@@ -1,4 +1,4 @@
-ofxRing
+ofxMarkovChain
 =======
 
 ![MarkovChain](ofxaddons_thumbnail.png)
