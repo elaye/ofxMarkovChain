@@ -5,29 +5,57 @@ void MarkovChain::setup(transitionMatrix mat, int _state){
 	state = _state;
 }
 
-void MarkovChain::load(string filename){
-	ofFile file;
-	if(!file.open(ofToDataPath(filename))){
-		ofLog(OF_LOG_ERROR) << "Cannot open \"" << filename << "\"";
-	}
-	ofBuffer buffer = file.readToBuffer();
-	string line;
-	do{
-		vector<float> row;
-		line = buffer.getNextLine();
-		istringstream ss(line);
-		float val;
-		while(ss >> val){
-			row.push_back(val);
+#if OF_VERSION_MINOR == 8
+	void MarkovChain::load(string filename){
+		transMat.clear();
+		ofFile file;
+		if(!file.open(ofToDataPath(filename))){
+			ofLog(OF_LOG_ERROR) << "Cannot open \"" << filename << "\"";
 		}
-		transMat.push_back(row);
+		ofBuffer buffer = file.readToBuffer();
+		string line;
+		do{
+			vector<float> row;
+			line = buffer.getNextLine();
+			istringstream ss(line);
+			float val;
+			while(ss >> val){
+				row.push_back(val);
+			}
+			transMat.push_back(row);
+		}
+		while(!buffer.isLastLine());
+		logTransitionMatrix();
+		if(!checkTransitionMatrix()){
+			ofLog(OF_LOG_ERROR) << "Bad transition matrix";
+		}
 	}
-	while(!buffer.isLastLine());
-	// logTransitionMatrix();
-	if(!checkTransitionMatrix()){
-		ofLog(OF_LOG_ERROR) << "Bad transition matrix";
+#elif OF_VERSION_MINOR > 8
+	void MarkovChain::load(string filename){
+		transMat.clear();
+		ofFile file;
+		if(!file.open(ofToDataPath(filename))){
+			ofLog(OF_LOG_ERROR) << "Cannot open \"" << filename << "\"";
+		}
+		ofBuffer buffer = file.readToBuffer();
+		ofBuffer::Lines lines = buffer.getLines();
+		for(ofBuffer::Line line = lines.begin(); line != lines.end(); ++line){
+			vector<float> row;
+			istringstream ss(*line);
+			float val;
+			while(ss >> val){
+				row.push_back(val);
+			}
+			transMat.push_back(row);
+		}
+		logTransitionMatrix();
+		if(!checkTransitionMatrix()){
+			ofLog(OF_LOG_ERROR) << "Bad transition matrix";
+		}
 	}
-}
+#else
+	ofLogError() << "Unsupported OF version";
+#endif
 
 bool MarkovChain::checkTransitionMatrix(){
 	int nCol = transMat[0].size();
