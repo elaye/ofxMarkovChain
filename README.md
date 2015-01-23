@@ -35,8 +35,8 @@ The example `example-rainfall` depends on the ofxGui addon to work.
 The example `example-random_walker` has no dependency (except ofxMarkovChain of course).
 
 <p align="center">
-![MarkovChain](random_walker.png)
-*Random walker example*
+<img alt="Random walker" src="random_walker.png">
+<em>Random walker example</em>
 </p>
 
 
