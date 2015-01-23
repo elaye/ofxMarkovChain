@@ -34,10 +34,10 @@ Examples
 The example `example-rainfall` depends on the ofxGui addon to work.
 The example `example-random_walker` has no dependency (except ofxMarkovChain of course).
 
-<p align="center">
-<img alt="Random walker" src="random_walker.png">
-<em>Random walker example</em>
-</p>
+<div style="text-align:center;">
+	<img src="random_walker.png" alt="Random walker">
+	<em>Random walker example</em>
+</div>
 
 
 Compatibility
