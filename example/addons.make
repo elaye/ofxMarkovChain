@@ -1,2 +1,0 @@
-ofxMarkovChain
-ofxGui

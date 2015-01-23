@@ -28,10 +28,15 @@ It will return an `int` representing the state of the Markov chain, starting at 
 
 You can draw the Markov chain with the `draw()` method.
 
-Example
--------
+Examples
+--------
 
-The example depends on the ofxGui addon to work.
+The example `example-rainfall` depends on the ofxGui addon to work.
+The example `example-random_walker` has no dependency (except ofxMarkovChain of course).
+
+![MarkovChain](random_walker.png)
+<span style="text-align:center;">*Random walker example*</span>
+
 
 Compatibility
 -------------
