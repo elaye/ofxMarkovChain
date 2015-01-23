@@ -34,7 +34,7 @@ Examples
 The example `example-rainfall` depends on the ofxGui addon to work.
 The example `example-random_walker` has no dependency (except ofxMarkovChain of course).
 
-<div style="text-align:center;">
+<div style="width:512px; margin-left:auto; margin-right:auto; text-align:center;">
 	<img src="random_walker.png" alt="Random walker">
 	<em>Random walker example</em>
 </div>
