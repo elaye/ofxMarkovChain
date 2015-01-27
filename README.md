@@ -11,10 +11,14 @@ This is a simple openFrameworks addon for generating random states using a Marko
 Usage
 -----
 
-Create a Markov chain and load a transition matrix like this:
+Create a transition matrix from a file:
 
-	MarkovChain markov;
-    markov.load("transitionMatrix.txt");
+	ofxMC::Matrix mat("transitionMatrix.txt");
+
+Setup the Markov chain with the loaded matrix, in state 0:
+
+	ofxMC::MarkovChain markov;
+    markov.setup(mat, 0);
 
 Update the state of the Markov chain:
 
