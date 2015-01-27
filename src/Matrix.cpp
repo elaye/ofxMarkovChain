@@ -63,14 +63,14 @@ mat(proba)
 }
 
 bool ofxMC::Matrix::check(){
-	int nCol = mat[0].size();
-	for(int i = 1; i < mat.size(); ++i){
+	uint nCol = mat[0].size();
+	for(uint i = 1; i < mat.size(); ++i){
 		if(mat[i].size() != nCol){
 			ofLog(OF_LOG_ERROR) << "The transition matrix must be a square matrix";
 			return false;	
 		} 
 		float sum = 0.0;
-		for(int j = 0; j < mat[i].size(); ++j){
+		for(uint j = 0; j < mat[i].size(); ++j){
 			sum += mat[i][j];
 		}
 		if(sum != 1.0){
@@ -90,8 +90,8 @@ bool ofxMC::Matrix::check(){
 void ofxMC::Matrix::log(){
 	stringstream ss;
 	ss << "Transition matrix:\n";
-	for(int i = 0; i < mat.size(); ++i){
-		for(int j = 0; j < mat[i].size(); ++j){
+	for(uint i = 0; i < mat.size(); ++i){
+		for(uint j = 0; j < mat[i].size(); ++j){
 			ss << mat[i][j] << "\t";
 		}
 		ss << "\n";
