@@ -1,88 +1,11 @@
 #include "ofxMarkovChain.h"
 
-void MarkovChain::setup(transitionMatrix mat, int _state){
+void ofxMC::MarkovChain::setup(ofxMC::Matrix mat, int _state){
 	transMat = mat;
 	state = _state;
 }
 
-#if OF_VERSION_MINOR == 8
-	void MarkovChain::load(string filename){
-		transMat.clear();
-		ofFile file;
-		if(!file.open(ofToDataPath(filename))){
-			ofLog(OF_LOG_ERROR) << "Cannot open \"" << filename << "\"";
-		}
-		ofBuffer buffer = file.readToBuffer();
-		string line;
-		do{
-			vector<float> row;
-			line = buffer.getNextLine();
-			istringstream ss(line);
-			float val;
-			while(ss >> val){
-				row.push_back(val);
-			}
-			transMat.push_back(row);
-		}
-		while(!buffer.isLastLine());
-		logTransitionMatrix();
-		if(!checkTransitionMatrix()){
-			ofLog(OF_LOG_ERROR) << "Bad transition matrix";
-		}
-	}
-#elif OF_VERSION_MINOR > 8
-	void MarkovChain::load(string filename){
-		transMat.clear();
-		ofFile file;
-		if(!file.open(ofToDataPath(filename))){
-			ofLog(OF_LOG_ERROR) << "Cannot open \"" << filename << "\"";
-		}
-		ofBuffer buffer = file.readToBuffer();
-		ofBuffer::Lines lines = buffer.getLines();
-		for(ofBuffer::Line line = lines.begin(); line != lines.end(); ++line){
-			vector<float> row;
-			istringstream ss(*line);
-			float val;
-			while(ss >> val){
-				row.push_back(val);
-			}
-			transMat.push_back(row);
-		}
-		logTransitionMatrix();
-		if(!checkTransitionMatrix()){
-			ofLog(OF_LOG_ERROR) << "Bad transition matrix";
-		}
-	}
-#else
-	ofLogError() << "Unsupported OF version";
-#endif
-
-bool MarkovChain::checkTransitionMatrix(){
-	int nCol = transMat[0].size();
-	for(int i = 1; i < transMat.size(); ++i){
-		if(transMat[i].size() != nCol){
-			ofLog(OF_LOG_ERROR) << "The transition matrix must be a square matrix";
-			return false;	
-		} 
-		float sum = 0.0;
-		for(int j = 0; j < transMat[i].size(); ++j){
-			sum += transMat[i][j];
-		}
-		if(sum != 1.0){
-			ofLog(OF_LOG_ERROR) << "The transition matrix must be stochastic\n(the sum of the coefficients in a row must be equal to 1.0)";
-			return false;
-		}
-	}
-	if(transMat.size() != nCol){
-		ofLog(OF_LOG_ERROR) << "The transition matrix must be a square matrix";
-		return false;
-	}
-	else{
-		return true;
-	}
-}
-
-void MarkovChain::update(){
+void ofxMC::MarkovChain::update(){
 	float f = ofRandom(1.0);
 	float sum = 0.0;
 	int new_state = -1;
@@ -91,7 +14,7 @@ void MarkovChain::update(){
 		new_state = 0;
 	}
 	else{
-		for(int i = 0; i < row.size()-1; ++i){
+		for(uint i = 0; i < row.size()-1; ++i){
 			sum += row[i];
 			if(f > sum && f < sum+row[i+1]){
 				new_state = i+1;
@@ -104,34 +27,29 @@ void MarkovChain::update(){
 	state = new_state;
 }
 
-void MarkovChain::setTransitionMatrix(transitionMatrix mat){
-	transMat = mat;
-	checkTransitionMatrix();
-}
-
-transitionMatrix MarkovChain::getTransitionMatrix(){
+ofxMC::Matrix ofxMC::MarkovChain::getTransitionMatrix(){
 	return transMat;
 }
 
-int MarkovChain::getState(){
+int ofxMC::MarkovChain::getState(){
 	return state;
 }
 
-int MarkovChain::getStatesNumber(){
+int ofxMC::MarkovChain::getStatesNumber(){
 	return transMat.size();
 }
 
-void MarkovChain::setProbabilities(int i, vector<float> row){
+void ofxMC::MarkovChain::setStateProbabilities(int i, vector<float> row){
 	if(row.size() != transMat[i].size()){
 		ofLog(OF_LOG_ERROR) << "Bad size for state transition probabilites assignment";
 		return;
 	}
 	transMat[i] = row;
-	checkTransitionMatrix();
+	transMat.check();
 }
 
-void MarkovChain::draw(int x, int y){
-	for(int i = 0; i < transMat.size(); ++i){
+void ofxMC::MarkovChain::draw(int x, int y){
+	for(int i = 0; i < (int) transMat.size(); ++i){
 		if(state == i){
 			ofSetColor(ofColor(231, 44, 44, 255));
 		}
@@ -142,16 +60,4 @@ void MarkovChain::draw(int x, int y){
 		ofSetColor(ofColor::black);
 		ofDrawBitmapString(ofToString(i), x+25*i-4, y+4);
 	}
-}
-
-void MarkovChain::logTransitionMatrix(){
-	stringstream ss;
-	ss << "Transition matrix:\n";
-	for(int i = 0; i < transMat.size(); ++i){
-		for(int j = 0; j < transMat[i].size(); ++j){
-			ss << transMat[i][j] << "\t";
-		}
-		ss << "\n";
-	}
-	ofLog() << ss.str();
 }

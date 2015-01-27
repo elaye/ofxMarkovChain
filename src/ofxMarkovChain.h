@@ -2,23 +2,21 @@
 
 #include "ofMain.h"
 
-typedef vector<vector<float> > transitionMatrix;
+#include "Matrix.h"
 
-class MarkovChain {
+namespace ofxMC {
+	class MarkovChain {
 
-	transitionMatrix transMat;
-	int state;
+		ofxMC::Matrix transMat;
+		int state;
 
-	public:
-		void setup(transitionMatrix mat, int state);
-		void load(string filename);
-		bool checkTransitionMatrix();
-		void update();
-		int getState();
-		int getStatesNumber();
-		void setTransitionMatrix(transitionMatrix mat);
-		transitionMatrix getTransitionMatrix();
-		void setProbabilities(int i, vector<float> row);
-		void draw(int x, int y);	
-		void logTransitionMatrix();
-};
+		public:
+			void setup(ofxMC::Matrix mat, int state);
+			void update();
+			int getState();
+			int getStatesNumber();
+			ofxMC::Matrix getTransitionMatrix();
+			void setStateProbabilities(int i, vector<float> row);
+			void draw(int x, int y);
+	};
+}

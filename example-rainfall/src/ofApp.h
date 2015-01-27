@@ -48,7 +48,7 @@ class ofApp : public ofBaseApp{
 	int i;
 	ofParameter<int> cycle;
 
-	MarkovChain markov;
+	ofxMC::MarkovChain markov;
 
 	ofxLabel fps;
 	ofxPanel gui;

@@ -7,7 +7,8 @@ void ofApp::setup(){
 
 	i = 0;
 
-	markov.load("transitionMatrix.txt");
+	ofxMC::Matrix mat("transitionMatrix.txt");
+	markov.setup(mat, 0);
 
 	gui.setup("Settings");
 	gui.add(cycle.set("Cycle", 15, 0, 90));

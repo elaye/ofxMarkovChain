@@ -6,7 +6,7 @@
 
 class ofApp : public ofBaseApp{
 
-	MarkovChain mc;
+	ofxMC::MarkovChain mc;
 	ofPolyline line;
 	float w;
 

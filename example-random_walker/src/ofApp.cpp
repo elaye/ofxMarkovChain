@@ -3,7 +3,9 @@
 void ofApp::setup(){
 	// Transition matrix: 4 states (up, right, down, left)
 	// each state as the same probability (0.25)
-	transitionMatrix mat(4, vector<float>(4, 0.25));
+
+	vector<vector<float> > vals(4, vector<float>(4, 0.25));
+	ofxMC::Matrix mat(vals);
 	mc.setup(mat, 0);
 
 	// Origin of the random walker at the center of the window
