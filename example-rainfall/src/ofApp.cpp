@@ -46,7 +46,7 @@ void ofApp::draw(){
 
 	if(i == 0){
 		ofSetColor(ofColor::red);
-		ofRect(gui.getWidth()+15, 15, 10, 10);	
+		ofDrawRectangle(gui.getWidth()+15, 15, 10, 10);
 	}
 	fps = ofToString(ofGetFrameRate());
 	gui.draw();

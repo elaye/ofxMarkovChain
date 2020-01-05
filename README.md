@@ -47,3 +47,5 @@ The example `example-random_walker` has no dependency (except ofxMarkovChain of 
 Compatibility
 -------------
 This addon was tested with Linux and openFrameworks v0.8.3
+
+db - This addon was tested with Mac OSX and openFrameworks v0.11.0
