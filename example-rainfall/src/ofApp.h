@@ -36,7 +36,7 @@ class Ball {
 		}
 		void draw(){
 			ofSetColor(c);
-			ofCircle(p, radius);
+			ofDrawCircle(p, radius);
 		}
 		bool isAlive(){
 			return (p.y - radius) < ofGetHeight();

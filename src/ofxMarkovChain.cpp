@@ -56,7 +56,7 @@ void ofxMC::MarkovChain::draw(int x, int y){
 		else{
 			ofSetColor(ofColor(44, 231, 44, 255));
 		}
-		ofCircle(x + 25*i, y, 10);
+		ofDrawCircle(x + 25*i, y, 10);
 		ofSetColor(ofColor::black);
 		ofDrawBitmapString(ofToString(i), x+25*i-4, y+4);
 	}
